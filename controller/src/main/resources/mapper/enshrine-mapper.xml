@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhongruan.dao.EnshrineDao">
+
+    <resultMap id="EnshrineMap" type="com.zhongruan.bean.Enshrine">
+        <id property="enshrineId" column="enshrineId"/>
+        <result property="userId" column="userId"/>
+        <result property="goodsId" column="goodsId"/>
+        <result property="enshrineTime" column="enshrineTime"/>
+    </resultMap>
+
+    <insert id="insertEnshrine" parameterType="com.zhongruan.bean.Enshrine">
+        insert into enshrine(userId,goodsId,enshrineTime)
+        values (#{userId},#{goodsId},#{enshrineTime})
+    </insert>
+
+    <delete id="deleteEnshrine" parameterType="java.lang.Long">
+        delete from enshrine where enshrineId=#{enshrineId}
+    </delete>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="EnshrineMap">
+        select * from enshrine where userId=#{userId}
+    </select>
+
+    <select id="findByGoodsId" parameterType="java.lang.Long" resultMap="EnshrineMap">
+         select * from enshrine where goodsId=#{goodsId}
+    </select>
+
+</mapper>

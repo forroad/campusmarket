@@ -2,8 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhongruan.dao.UserDao">
 
-    <select id="findByUserAccount" parameterType="java.lang.String">
+    <resultMap id="UserMap" type="com.zhongruan.bean.User">
+        <id property="userId" column="userId"/>
+        <result property="userAccount" column="userAccount"/>
+        <result property="userPassword" column="userPassword"/>
+        <result property="userImage" column="userImage"/>
+        <result property="userRealName" column="userRealName"/>
+        <result property="userTelephone" column="userTelephone"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+
+    <insert id="insertUser" parameterType="com.zhongruan.bean.User">
+        insert into user(userAccount,userPassword,userImage,userRealName,userTelephone,address)
+        values (#{userAccount},#{userPassword},#{userImage},#{userRealName},#{userTelephone},#{address})
+    </insert>
+
+    <delete id="deleteUser" parameterType="java.lang.Long">
+        delete from user where userid=#{userId}
+    </delete>
+
+    <select id="findByUserId" parameterType="java.lang.String" resultMap="UserMap">
+        select * from user where userId=#{userId}
+    </select>
+
+    <select id="findByUserAccount" parameterType="java.lang.String" resultMap="UserMap">
         select * from user where userAccount=#{userAccount}
     </select>
 
+    <select id="findByRealname" parameterType="java.lang.String" resultMap="UserMap">
+        select * from user where userRealName like "%"#{realname}"%"
+    </select>
+
+    <select id="findByTelephone" parameterType="java.lang.Long" resultMap="UserMap">
+        select * from user where userTelephone=#{telephone}
+    </select>
+
+    <update id="modifyUser" parameterType="com.zhongruan.bean.User">
+        update user
+        set userPassword=#{userPassword},userImage=#{userImage},userRealName=#{userRealName},userTelephone=#{userTelephone},address=#{address}
+        WHERE userId=#{userId}
+    </update>
 </mapper>

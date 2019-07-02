@@ -4,7 +4,7 @@ public class Goods {
     private long goodsId;
     private long userId;
     //商品类别Id
-    private int typeId;
+    private long typeId;
     //商品名称
     private String goodsName;
     //商品描述
@@ -18,14 +18,14 @@ public class Goods {
     //商品人气
     private int goodsPopularity;
     //商品新旧程度
-    private String goodsStatus;
+    private int goodsStatus;
     //商品图片存储路径
     private String goodsImage;
 
     public Goods() {
     }
 
-    public Goods(long userId, int typeId, String goodsName, String goodsContent, int goodsNumber, double goodsOrginalPrice, double goodsNowPrice, int goodsPopularity, String goodsStatus, String goodsImage) {
+    public Goods(long userId, long typeId, String goodsName, String goodsContent, int goodsNumber, double goodsOrginalPrice, double goodsNowPrice, int goodsPopularity, int goodsStatus, String goodsImage) {
         this.userId = userId;
         this.typeId = typeId;
         this.goodsName = goodsName;
@@ -54,11 +54,11 @@ public class Goods {
         this.userId = userId;
     }
 
-    public int getTypeId() {
+    public long getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(long typeId) {
         this.typeId = typeId;
     }
 
@@ -110,11 +110,11 @@ public class Goods {
         this.goodsPopularity = goodsPopularity;
     }
 
-    public String getGoodsStatus() {
+    public int getGoodsStatus() {
         return goodsStatus;
     }
 
-    public void setGoodsStatus(String goodsStatus) {
+    public void setGoodsStatus(int goodsStatus) {
         this.goodsStatus = goodsStatus;
     }
 
