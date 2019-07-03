@@ -11,7 +11,7 @@
 
     <insert id="insertPurchase" parameterType="com.zhongruan.bean.Purchase">
         insert into purchase (userId,goodsId,purchaseTime)
-         values (#{userId},#{goodsId,#{purchaseTime});
+         values (#{userId},#{goodsId},#{purchaseTime});
     </insert>
     
     <delete id="deletePurchase" parameterType="java.lang.Long">
