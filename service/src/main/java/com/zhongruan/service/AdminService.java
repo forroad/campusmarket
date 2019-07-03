@@ -13,6 +13,6 @@ public interface AdminService {
      * @param adminImage 管理员头像路径
      * @return 添加信息
      */
-    Result addAdmin(String adminAccount,String adminPassword,String adminRealName,String adminTelephone,String adminImage);
+    Result addAdmin(String adminAccount,String adminPassword,String adminRealName,Long adminTelephone,String adminImage);
 
 }

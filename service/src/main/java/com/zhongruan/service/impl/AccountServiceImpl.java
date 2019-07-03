@@ -8,18 +8,21 @@ import com.zhongruan.bean.util.AccountUtils;
 import com.zhongruan.dao.UserDao;
 import com.zhongruan.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
     UserDao userDao;
     @Autowired
     HttpServletRequest request;
-
+//
     @Override
     public Result login(String userAccount, String userPassword) {
         User user = userDao.findByUserAccount(userAccount);
@@ -67,21 +70,25 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Result findByUserId(long userId) {
-        return null;
+        User user=userDao.findByUserId(userId);
+        return new Result("查询成功",user);
     }
 
     @Override
     public Result findByUserAccount(String userAccount) {
-        return null;
+        User user=userDao.findByUserAccount(userAccount);
+        return new Result("查询成功",user);
     }
 
     @Override
     public Result findByRealname(String realname) {
-        return null;
+       List<User> user=userDao.findByRealname(realname);
+        return new Result("查询成功",user);
     }
 
     @Override
     public Result findByTelephone(long telephone) {
-        return null;
+        User user=userDao.findByUserId(telephone);
+        return new Result("查询成功",user);
     }
 }
