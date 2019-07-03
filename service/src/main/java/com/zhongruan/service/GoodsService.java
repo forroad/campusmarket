@@ -1,6 +1,9 @@
 package com.zhongruan.service;
 
+import com.zhongruan.bean.Goods;
 import com.zhongruan.bean.response.Result;
+
+import java.util.List;
 
 public interface GoodsService {
     /**
@@ -38,10 +41,48 @@ public interface GoodsService {
     Result buyGoods(long userId,long goodsId);
 
     /**
-     *  用户留言
-     * @param userId 留言的用户id
-     * @param goodsId 商品id
-     * @return 留言信息
+     *  查询商品详细信息
+     * @param goodsId 商品Id
+     * @return 查询的商品信息
      */
-    Result messageGoods(long userId,long goodsId,String messageContext);
+    Result findByGoodsId(long goodsId);
+
+    /**
+     * 通过名称模糊查询商品
+     * @param goodsName 关键词
+     * @return 查询结果
+     */
+    Result findByGoodsNameLike(String goodsName);
+
+    /**
+     * 通过价格区间筛选商品
+     * @param startPrice 起始价格
+     * @param endPrice 终止价格
+     * @return  筛选结果
+     */
+    Result findByGoodsNowPriceBetween(double startPrice,double endPrice);
+
+    /**
+     *  通过商品人气降序查询商品
+     * @return 返回的结果集
+     */
+    Result findByGoodsPopularityDesc();
+
+    /**
+     *  通过商品人气升序查询商品
+     * @return 返回的结果集
+     */
+    Result findByGoodsPopularityAsc();
+
+    /**
+     *  通过商品新旧程序降序查询商品
+     * @return 返回的结果集
+     */
+    Result findByGoodsStatusDesc();
+
+    /**
+     *  通过商品新旧程度升序查询商品
+     * @return
+     */
+    Result findByGoodsStatusAsc();
 }

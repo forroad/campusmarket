@@ -68,17 +68,37 @@ public class GoodServiceImpl implements GoodsService {
     }
 
     @Override
-    public Result messageGoods(long userId, long goodsId,String messageContext) {
-        User user = userDao.findByUserId(userId);
-        if(user == null){
-            return new Result("用户不存在",null);
-        }
-        Goods goods = goodsDao.findByGoodsId(goodsId);
-        if(goods == null){
-            return new Result("商品不存在",null);
-        }
-        Message message = new Message(goodsId,userId,new Date(System.currentTimeMillis()),messageContext);
-        messageDao.insertMessage(message);
-        return new Result("留言成功",message);
+    public Result findByGoodsId(long goodsId) {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsNameLike(String goodsName) {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsNowPriceBetween(double startPrice, double endPrice) {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsPopularityDesc() {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsPopularityAsc() {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsStatusDesc() {
+        return null;
+    }
+
+    @Override
+    public Result findByGoodsStatusAsc() {
+        return null;
     }
 }

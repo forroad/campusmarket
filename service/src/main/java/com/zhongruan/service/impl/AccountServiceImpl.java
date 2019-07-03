@@ -64,4 +64,24 @@ public class AccountServiceImpl implements AccountService {
         userDao.modifyUser(user);
         return new Result("修改成功",user);
     }
+
+    @Override
+    public Result findByUserId(long userId) {
+        return null;
+    }
+
+    @Override
+    public Result findByUserAccount(String userAccount) {
+        return null;
+    }
+
+    @Override
+    public Result findByRealname(String realname) {
+        return null;
+    }
+
+    @Override
+    public Result findByTelephone(long telephone) {
+        return null;
+    }
 }
