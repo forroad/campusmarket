@@ -5,11 +5,13 @@ import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.NoticeDao;
 import com.zhongruan.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class NoticeServiceImpl implements NoticeService {
     @Autowired
     NoticeDao NoticeDao;

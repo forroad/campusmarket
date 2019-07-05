@@ -5,10 +5,12 @@ import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.*;
 import com.zhongruan.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class GoodServiceImpl implements GoodsService {
     @Autowired
     GoodsDao goodsDao;
@@ -66,39 +68,46 @@ public class GoodServiceImpl implements GoodsService {
         purchaseDao.insertPurchase(purchase);
         return new Result("购买成功",purchase);
     }
-
+    //通过ID查询商品
     @Override
     public Result findByGoodsId(long goodsId) {
-        return null;
+        Goods goods=goodsDao.findByGoodsId(goodsId);
+        return new Result("查询成功",goods);
     }
-
+    //通过商品名模糊查询
     @Override
     public Result findByGoodsNameLike(String goodsName) {
-        return null;
+        List<Goods>goods=goodsDao.findByGoodsNameLike(goodsName);
+        return new Result("查询成功",goods);
     }
-
+    //通过价格区间查询
     @Override
     public Result findByGoodsNowPriceBetween(double startPrice, double endPrice) {
-        return null;
+        List<Goods>goods=goodsDao.findByGoodsNowPriceBetween(startPrice,endPrice);
+        return new Result("查询成功",goods);
     }
-
+    //根据人气降序查询
     @Override
     public Result findByGoodsPopularityDesc() {
-        return null;
+        List<Goods>goods=goodsDao.findByGoodsPopularityDesc();
+        return  new Result("查询成功",goods);
     }
-
+    //根据人气降序查询
     @Override
     public Result findByGoodsPopularityAsc() {
-        return null;
+        List<Goods>goods=goodsDao.findByGoodsPopularityAsc();
+        return  new Result("查询成功",goods);
     }
-
+//通过商品新旧程序降序查询商品
     @Override
     public Result findByGoodsStatusDesc() {
-        return null;
+       List<Goods> goods=goodsDao.findByGoodsStatusDesc();
+        return  new Result("查询成功",goods);
     }
-
+//通过商品新旧程序降序查询商品
     @Override
     public Result findByGoodsStatusAsc() {
-        return null;
+        List<Goods> goods=goodsDao.findByGoodsStatusAsc();
+        return  new Result("查询成功",goods);
     }
 }

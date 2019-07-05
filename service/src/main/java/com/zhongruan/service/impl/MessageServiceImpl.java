@@ -9,9 +9,13 @@ import com.zhongruan.dao.MessageDao;
 import com.zhongruan.dao.UserDao;
 import com.zhongruan.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
+
+@Service
 public class MessageServiceImpl implements MessageService {
     @Autowired
     UserDao userDao;
@@ -37,16 +41,20 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Result findGoodsMessage(long goodsId) {
-        return null;
+        List<Message> message=messageDao.findByGoodsId(goodsId);
+        return new Result("查询成功",message);
     }
 
     @Override
     public Result findUserMessage(long userId) {
-        return null;
+
+        List<Message> message=messageDao.findByGoodsId(userId);
+        return new Result("查询成功",message);
     }
 
     @Override
     public Result deleteMessage(long messageId) {
-        return null;
+        messageDao.deleteMessage(messageId);
+        return  new Result("删除成功",null);
     }
 }
