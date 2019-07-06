@@ -1,15 +1,21 @@
 package com.zhongruan.bean.response;
 
-public class Result {
+import java.io.Serializable;
+
+public class Result{
     private String message;
-    private Object object;
+    private Object data;
 
     public Result() {
     }
 
-    public Result(String message, Object object) {
+    public Result(String message, Object data) {
         this.message = message;
-        this.object = object;
+        if(data == null){
+            this.data = "";
+        }else {
+            this.data = data;
+        }
     }
 
     public String getMessage() {
@@ -20,11 +26,12 @@ public class Result {
         this.message = message;
     }
 
-    public Object getObject() {
-        return object;
+
+    public Object getData() {
+        return data;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setData(Object data) {
+        this.data = data;
     }
 }

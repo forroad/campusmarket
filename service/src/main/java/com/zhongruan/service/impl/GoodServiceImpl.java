@@ -77,25 +77,25 @@ public class GoodServiceImpl implements GoodsService {
     //通过商品名模糊查询
     @Override
     public Result findByGoodsNameLike(String goodsName) {
-        List<Goods>goods=goodsDao.findByGoodsNameLike(goodsName);
+        List<Goods> goods=goodsDao.findByGoodsNameLike(goodsName);
         return new Result("查询成功",goods);
     }
     //通过价格区间查询
     @Override
     public Result findByGoodsNowPriceBetween(double startPrice, double endPrice) {
-        List<Goods>goods=goodsDao.findByGoodsNowPriceBetween(startPrice,endPrice);
+        List<Goods> goods=goodsDao.findByGoodsNowPriceBetween(startPrice,endPrice);
         return new Result("查询成功",goods);
     }
     //根据人气降序查询
     @Override
     public Result findByGoodsPopularityDesc() {
-        List<Goods>goods=goodsDao.findByGoodsPopularityDesc();
+        List<Goods> goods=goodsDao.findByGoodsPopularityDesc();
         return  new Result("查询成功",goods);
     }
     //根据人气降序查询
     @Override
     public Result findByGoodsPopularityAsc() {
-        List<Goods>goods=goodsDao.findByGoodsPopularityAsc();
+        List<Goods> goods=goodsDao.findByGoodsPopularityAsc();
         return  new Result("查询成功",goods);
     }
 //通过商品新旧程序降序查询商品
@@ -109,5 +109,10 @@ public class GoodServiceImpl implements GoodsService {
     public Result findByGoodsStatusAsc() {
         List<Goods> goods=goodsDao.findByGoodsStatusAsc();
         return  new Result("查询成功",goods);
+    }
+
+    @Override
+    public Result findByIsBuyAndUserId(long userId) {
+        return  new Result("查询成功",goodsDao.findByIsBuyAndUserId(userId));
     }
 }

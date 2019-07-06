@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhongruan.dao.NoticeDao">
+
+    <resultMap id="NoticeMap" type="com.zhongruan.bean.Notice">
+        <id property="noticeId" column="noticeId"/>
+        <result property="adminId" column="adminId"/>
+        <result property="noticeTime" column="noticeTime"/>
+        <result property="noticeContent" column="noticeContent"/>
+    </resultMap>
+
+    <insert id="insertNotice" parameterType="com.zhongruan.bean.Notice">
+        insert into notice(adminId,noticeTime,noticeContent)
+        values (#{adminId},#{noticeTime},#{noticeContent})
+    </insert>
+
+    <delete id="deleteNotice" parameterType="java.lang.Long">
+        delete from notice
+        where noticeId=#{noticeId}
+    </delete>
+
+    <select id="findAllNoticeOrderByTimeDesc" resultMap="NoticeMap">
+        select * from notice
+        order by noticeTime desc
+    </select>
+
+</mapper>

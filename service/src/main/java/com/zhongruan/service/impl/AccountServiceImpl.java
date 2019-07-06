@@ -32,13 +32,16 @@ public class AccountServiceImpl implements AccountService {
         if(AccountUtils.encoding(userPassword).equals(user.getUserPassword())){
             HttpSession session = request.getSession();
             session.setAttribute("userId",user.getUserId());
-            return new Result("登陆成功",user);
+            return new Result("登录成功",user);
         }
         return new Result("密码错误",null);
     }
 
     @Override
     public Result register(String userAccount, String userPassword, String userImage, String userRealName, long userTelephone, String address) {
+        if(String.valueOf(userTelephone).length() != 11){
+            return new Result("手机号不规范",null);
+        }
         User user = userDao.findByUserAccount(userAccount);
         if(user != null){
             return new Result("用户名已存在",null);

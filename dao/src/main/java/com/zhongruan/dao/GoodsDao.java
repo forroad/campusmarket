@@ -64,4 +64,11 @@ public interface GoodsDao {
      * @return
      */
     List<Goods> findByGoodsStatusAsc();
+
+    /**
+     * 查询某个用户购买的商品
+     * @param userId 用户id
+     * @return 查询结果
+     */
+    List<Goods> findByIsBuyAndUserId(long userId);
 }

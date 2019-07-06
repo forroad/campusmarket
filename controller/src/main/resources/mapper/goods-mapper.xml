@@ -14,6 +14,7 @@
         <result property="goodsPopularity" column="goodsPopularity"/>
         <result property="goodsStatus" column="goodsStatus"/>
         <result property="goodsImage" column="goodsImage"/>
+        <result property="isBuy" column="isBuy"/>
     </resultMap>
 
 
@@ -61,4 +62,8 @@
         order by goodsStatus asc
     </select>
 
+   <select id="findByIsBuyAndUserId" parameterType="java.lang.Long" resultMap="GoodsMap" >
+       SELECT * FROM goods
+       WHERE goodsId IN (SELECT goodsId FROM purchase WHERE userId=#{userId})
+   </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.zhongruan.controller;
 
+import com.google.gson.Gson;
 import com.zhongruan.bean.User;
+import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.UserDao;
+import com.zhongruan.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,50 +15,16 @@ import java.util.List;
 @RestController
 @RequestMapping("test")
 public class TestController {
+    private Gson gson = new Gson();
     @Autowired
     UserDao userDao;
+    @Autowired
+    AccountService accountService;
 
-    @GetMapping
-    public String test(){
-        {
-            System.out.println("account:");
-            String account = "18386133395";
-            User user = userDao.findByUserAccount(account);
-            System.out.println(user.getUserAccount() + "");
-        }
-        {
-            System.out.println("realname:");
-            String realname = "赵";
-            List<User> users = userDao.findByRealname(realname);
-            for (User user : users) {
-                System.out.println(user.getUserAccount());
-            }
-        }
-        {
-            System.out.println("telephone:");
-            long telephone = 18386133395L;
-            User user = userDao.findByTelephone(telephone);
-            System.out.println(user.getUserAccount());
-        }
-        {
-            System.out.println("modifyUser");
-            User user = userDao.findByUserAccount("18386133395");
-            user.setUserPassword("1234567");
-            user.setUserRealName("zhao");
-            userDao.modifyUser(user);
-        }
-        {
-            System.out.println("delete:");
-            User user = userDao.findByUserAccount("18198189635");
-            userDao.deleteUser(user.getUserId());
-        }
-        return "Test Successful!";
-    }
 
-    @GetMapping("testinsert")
-    public int testInsert(){
-        User user = new User("18386133395","123456","null","赵贻成",18386133395L,"贵州");
-        return userDao.insertUser(user);
+    @GetMapping(value = "testinsert",produces = "application/json;charset=UTF-8")
+    public String testInsert(){
+        return gson.toJson(accountService.register("18198189635","123456","null","赵贻成",18198189635L,"贵州"));
     }
 
 }
