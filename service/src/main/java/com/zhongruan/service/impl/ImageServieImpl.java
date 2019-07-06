@@ -37,9 +37,9 @@ public class ImageServieImpl implements ImageService {
         String imgtype = fileAllName.substring(index,fileAllName.length());
         String path;
         if(type == 0){
-            path = "F:\\shixi\\campusmarket_1\\service\\src\\main\\java\\com\\zhongruan\\service\\img\\user\\";//文件存的路径
+            path = "F:\\shixi\\campusmarket\\service\\src\\main\\java\\com\\zhongruan\\service\\img\\user\\";//文件存的路径
         }else {
-            path = "F:\\shixi\\campusmarket_1\\service\\src\\main\\java\\com\\zhongruan\\service\\img\\goods\\";
+            path = "F:\\shixi\\campusmarket\\service\\src\\main\\java\\com\\zhongruan\\service\\img\\goods\\";
         }
 
         File fileImage = new File(path);
@@ -47,8 +47,9 @@ public class ImageServieImpl implements ImageService {
             fileImage.getParentFile().mkdirs();
         }
         try {
-            uploadFile(image.getBytes(), path, id + imgtype);
-            return new Result("上传成功",path + id + imgtype);
+            String endPath = System.currentTimeMillis() +id + imgtype;
+            uploadFile(image.getBytes(), path, endPath);
+            return new Result("上传成功",path + endPath);
         } catch (Exception e) {
             e.printStackTrace();
         }

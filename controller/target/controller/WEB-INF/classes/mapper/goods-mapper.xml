@@ -19,8 +19,8 @@
 
 
     <insert id="insertGoods"  parameterType="com.zhongruan.bean.Goods">
-        insert into goods(userId,typeId,goodsName,goodsContent,goodsNumber,goodsOrginalPrice,goodsNowPrice,goodsPopularity,goodsStatus,goodsImage,isBuy)
-        values (#{userId},#{typeId},#{goodsName},#{goodsContent},#{goodsNumber},#{goodsOrginalPrice},#{goodsNowPrice},#{goodsPopularity},#{goodsStatus},#{goodsImage},#{isBuy})
+        insert into goods(userId,typeId,goodsName,goodsContent,goodsNumber,goodsOrginalPrice,goodsNowPrice,goodsPopularity,goodsStatus,goodsImage)
+        values (#{userId},#{typeId},#{goodsName},#{goodsContent},#{goodsNumber},#{goodsOrginalPrice},#{goodsNowPrice},#{goodsPopularity},#{goodsStatus},#{goodsImage})
     </insert>
 
     <delete id="deleeGoods" parameterType="java.lang.Long">

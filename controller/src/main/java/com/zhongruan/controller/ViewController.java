@@ -3,7 +3,9 @@ package com.zhongruan.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zhongruan.bean.Goods;
 import com.zhongruan.bean.Purchase;
+import com.zhongruan.bean.User;
 import com.zhongruan.bean.response.Result;
+import com.zhongruan.dao.UserDao;
 import com.zhongruan.service.GoodsService;
 import com.zhongruan.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,14 @@ import java.util.List;
 @RequestMapping("view")
 public class ViewController {
     private GoodsService goodsService;
+    private UserDao userDao;
     private PurchaseService purchaseService;
     private HttpServletRequest request;
 
     @Autowired
-    public ViewController(GoodsService goodsService, PurchaseService purchaseService, HttpServletRequest request) {
+    public ViewController(GoodsService goodsService, UserDao userDao, PurchaseService purchaseService, HttpServletRequest request) {
         this.goodsService = goodsService;
+        this.userDao = userDao;
         this.purchaseService = purchaseService;
         this.request = request;
     }
@@ -44,7 +48,11 @@ public class ViewController {
     }
 
     @RequestMapping("index")
-    public String index(){
+    public String index(Model model){
+        String userId = request.getSession().getAttribute("userId").toString();
+        long id = Long.valueOf(userId);
+        User user = userDao.findByUserId(id);
+        model.addAttribute("user",user);
         return "index";
     }
 
