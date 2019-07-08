@@ -3,6 +3,7 @@ package com.zhongruan.dao;
 import com.zhongruan.bean.Enshrine;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface EnshrineDao {
     /**
@@ -32,4 +33,20 @@ public interface EnshrineDao {
      * @return 查询结果
      */
     List<Enshrine> findByGoodsId(long goodsId);
+
+    /**
+     *  删除收藏
+     * @param goodsId 商品id
+     * @param userId 用户id
+     * @return ...
+     */
+    int delEnshrine(@Param("goodsId")long goodsId, @Param("userId")long userId);
+
+    /**
+     * 通过商品id和用户Id查询收藏
+     * @param goodsId 商品id
+     * @param userId 用户id
+     * @return 查询的结果
+     */
+    Enshrine findByUserIdAndGoodsId(@Param("goodsId")long goodsId, @Param("userId")long userId);
 }

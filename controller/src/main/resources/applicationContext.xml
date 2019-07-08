@@ -35,6 +35,19 @@
         <!--配置加载映射文件 UserMapper.xml-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
 
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+
     </bean>
 
     <!-- 自动生成dao,mapper-->

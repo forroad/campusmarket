@@ -1,12 +1,12 @@
 package com.zhongruan.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.github.pagehelper.PageInfo;
 import com.zhongruan.bean.Goods;
-import com.zhongruan.bean.Purchase;
 import com.zhongruan.bean.User;
 import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.UserDao;
 import com.zhongruan.service.GoodsService;
+import com.zhongruan.service.MessageService;
 import com.zhongruan.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,13 +23,15 @@ public class ViewController {
     private UserDao userDao;
     private PurchaseService purchaseService;
     private HttpServletRequest request;
+    private MessageService messageService;
 
     @Autowired
-    public ViewController(GoodsService goodsService, UserDao userDao, PurchaseService purchaseService, HttpServletRequest request) {
+    public ViewController(GoodsService goodsService, UserDao userDao, PurchaseService purchaseService, HttpServletRequest request, MessageService messageService) {
         this.goodsService = goodsService;
         this.userDao = userDao;
         this.purchaseService = purchaseService;
         this.request = request;
+        this.messageService = messageService;
     }
 
     @RequestMapping("main")
@@ -39,12 +41,12 @@ public class ViewController {
 
     @RequestMapping("login")
     public String login(){
-        return "login";
+        return "../login";
     }
 
     @RequestMapping("register")
     public String register(){
-        return "register";
+        return "../register";
     }
 
     @RequestMapping("index")
@@ -56,13 +58,11 @@ public class ViewController {
         return "index";
     }
 
-    @RequestMapping("shopping")
-    public String shopping(){
-        return "shopping";
-    }
 
     @RequestMapping("mycart")
-    public String mycart(){
+    public String mycart(Model model){
+        Result result = goodsService.findGoodsByUserId(Long.valueOf(request.getSession().getAttribute("userId").toString()));
+        model.addAttribute("enshrineList",result.getData());
         return "mycart";
     }
 
@@ -73,7 +73,7 @@ public class ViewController {
 
     @RequestMapping("myshopping")
     public String myshopping(Model model){
-        Result result = goodsService.findByGoodsPopularityAsc();
+        Result result = goodsService.findByNotBuyAndAdd(Long.valueOf(request.getSession().getAttribute("userId").toString()));
         model.addAttribute("goodsList",result.getData());
         return "myshopping";
     }
@@ -84,4 +84,23 @@ public class ViewController {
         model.addAttribute("goodsList",result.getData());
         return "myorder";
     }
+
+    @RequestMapping("shopping-info")
+    public String shoppingInfo(long goodsId,Model model){
+        Result result= goodsService.findByGoodsId(goodsId);
+        model.addAttribute("goods",result.getData());
+        Result messageResult = messageService.findGoodsMessage(goodsId);
+        model.addAttribute("messageList",messageResult.getData());
+        return "shopping-info";
+    }
+
+
+    //显示所有的未被购买的商品
+    @RequestMapping("shopping")
+    public String goodsFindLikeName(Integer pageNum,Integer pageSize,Model model){
+        Result result = goodsService.findGoodsExc();
+        return goodsService.returnPageList((List<Goods>)result.getData(),1,20,true,model);
+    }
+
+
 }

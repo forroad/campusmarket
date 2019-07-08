@@ -62,7 +62,12 @@ public class AccountServiceImpl implements AccountService {
         if(user == null){
             return new Result("用户名不存在",null);
         }
-        user.setUserPassword(AccountUtils.encoding(userPassword));
+        if(String.valueOf(userTelephone).length() != 11){
+            return new Result("手机号不规范",null);
+        }
+        if(!AccountUtils.encoding(userPassword).equals(user.getUserPassword())){
+            user.setUserPassword(AccountUtils.encoding(userPassword));
+        }
         user.setUserImage(userImage);
         user.setUserRealName(userRealName);
         user.setUserTelephone(userTelephone);

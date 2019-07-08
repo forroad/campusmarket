@@ -81,7 +81,7 @@ margin-right: 0px;border-bottom: 1px solid #0e90d2;border-radius: 0px;}
 .footer-bd{ display:none;}
 
 @media screen and (min-width:640px){
-form,.am-cf,.partner{max-width:640px;margin:20px auto ;}
+form,.am-cf,.partner{max-width:640px;margin:20px auto ; }
 .footer-bd{ display:block;}	
 .partner h3 {text-align:left;}
 .am-btn-group i { display:inline-block;border-radius:0px;border:0px;background-color:transparent ;}

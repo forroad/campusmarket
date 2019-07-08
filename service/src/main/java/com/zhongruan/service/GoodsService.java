@@ -1,7 +1,9 @@
 package com.zhongruan.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zhongruan.bean.Goods;
 import com.zhongruan.bean.response.Result;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -92,4 +94,45 @@ public interface GoodsService {
      * @return 查询结果
      */
     Result findByIsBuyAndUserId(long userId);
+
+    /**
+     * 查询用户发布并且未被购买的商品
+     * @param userId 发布商品的用户
+     * @return 查询结果集
+     */
+    Result findByNotBuyAndAdd(long userId);
+
+    /**
+     *  查询用户收藏的商品
+     * @param userId 用户id
+     * @return 查询结果
+     */
+    Result findGoodsByUserId(long userId);
+
+    /**
+     *  查询不在订单中的商品
+     * @return 商品
+     */
+    Result findGoodsExc();
+
+    /**
+     *   通过类型查询商品
+     * @param typeName 类型名字
+     * @return 查询结果
+     */
+    Result findGoodsByType(String typeName);
+
+    /**
+     * 通过价格降序查询商品
+     * @return 查询结果
+     */
+    Result findByGoodsPriceDesc();
+
+    /**
+     * 通过价格升序查询商品
+     * @return 查询结果
+     */
+    Result findByGoodsPriceAsc();
+
+    String returnPageList(List<Goods> goodsList, int pageNum, int pageSize,Boolean isFirst, Model model);
 }

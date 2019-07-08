@@ -19,6 +19,13 @@
 		<link href="<c:url value="//static//css/personal.css"/>" rel="stylesheet" type="text/css">
 		<link href="<c:url value="//static//css/colstyle.css"/>" rel="stylesheet" type="text/css">
 
+		<%--提示信息--%>
+		<script type="application/javascript">
+			if("${result}".length != 0){
+				alert("${result}")
+			}
+		</script>
+
 	</head>
 
 	<body>
@@ -102,7 +109,10 @@
 										<div class="s-info">
 											<div style="text-align: center" class="s-title"><a href="#" title="" >${goods.goodsName}</a></div>
 											<div class="s-price-box">
-												<span class="s-price"><em class="s-price-sign">¥</em><em class="s-value">${goods.goodsNowPrice}</em></span>
+												<span class="s-price">
+													<em style="float: left" class="s-value">¥${goods.goodsNowPrice}</em>
+													<em class="s-value"><a  style="color: green;float: right;font-size: 12px;margin-top: -3px" class="s-title" href="${path}/goods/subGoods?goodsId=${goods.goodsId}">下架</a></em>
+												</span>
 											</div>
 										</div>
 

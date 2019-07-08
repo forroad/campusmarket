@@ -1,12 +1,21 @@
 package com.zhongruan.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zhongruan.bean.*;
 import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.*;
 import com.zhongruan.service.GoodsService;
+import com.zhongruan.service.GoodsTypeService;
+import com.zhongruan.service.MessageService;
+import com.zhongruan.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +31,12 @@ public class GoodServiceImpl implements GoodsService {
     UserDao userDao;
     @Autowired
     PurchaseDao purchaseDao;
+    @Autowired
+    GoodsTypeDao goodsTypeDao;
+    @Autowired
+    HttpSession session;
+    @Autowired
+    NoticeService noticeService;
 
 
     @Override
@@ -49,6 +64,13 @@ public class GoodServiceImpl implements GoodsService {
                 enshrineDao.deleteEnshrine(enshrine.getEnshrineId());
             }
         }
+        //删除订单
+        List<Purchase> purchaseList = purchaseDao.findByGoosId(goodsId);
+        if(purchaseList.size() > 0){
+            for (Purchase purchase:purchaseList) {
+                purchaseDao.deletePurchase(purchase.getPurchaseId());
+            }
+        }
         //删除商品
         goodsDao.deleeGoods(goodsId);
         return new Result("下架成功",goods);
@@ -63,6 +85,12 @@ public class GoodServiceImpl implements GoodsService {
         Goods goods = goodsDao.findByGoodsId(goodsId);
         if(goods == null){
             return new Result("商品不存在",null);
+        }
+        List<Enshrine> enshrineList = enshrineDao.findByGoodsId(goodsId);
+        if(enshrineList.size() > 0){
+            for (Enshrine enshrine:enshrineList) {
+                enshrineDao.deleteEnshrine(enshrine.getEnshrineId());
+            }
         }
         Purchase purchase = new Purchase(userId,goodsId,new Date(System.currentTimeMillis()));
         purchaseDao.insertPurchase(purchase);
@@ -90,6 +118,7 @@ public class GoodServiceImpl implements GoodsService {
     @Override
     public Result findByGoodsPopularityDesc() {
         List<Goods> goods=goodsDao.findByGoodsPopularityDesc();
+        System.out.println("size:" + goods.size() + "");
         return  new Result("查询成功",goods);
     }
     //根据人气降序查询
@@ -114,5 +143,71 @@ public class GoodServiceImpl implements GoodsService {
     @Override
     public Result findByIsBuyAndUserId(long userId) {
         return  new Result("查询成功",goodsDao.findByIsBuyAndUserId(userId));
+    }
+
+    @Override
+    public Result findByNotBuyAndAdd(long userId) {
+        return new Result("查询成功",goodsDao.findByNotByAndAdd(userId));
+    }
+
+    @Override
+    public Result findGoodsByUserId(long userId) {
+        List<Goods> goodsList= goodsDao.findGoodsByUserId(userId);
+
+        return new Result("查询成功",goodsList);
+    }
+
+    @Override
+    public Result findGoodsExc() {
+        return new Result("查询成功",goodsDao.findGoodsExc());
+    }
+
+    @Override
+    public Result findGoodsByType(String typeName) {
+        GoodsType type = goodsTypeDao.findByGoodsTypeName(typeName);
+        if(type == null){
+            return new Result("类型不存在",null);
+        }
+        List<Goods> goodsList = goodsDao.findGoodsByType(type.getTypeId());
+        return new Result("查询成功",goodsList);
+    }
+
+    @Override
+    public Result findByGoodsPriceDesc() {
+        List<Goods> goodsList= goodsDao.findByGoodsPriceDesc();
+        return new Result("查询成功",goodsList);
+    }
+
+    @Override
+    public Result findByGoodsPriceAsc() {
+        List<Goods> goodsList= goodsDao.findByGoodsPriceAsc();
+        return new Result("查询成功",goodsList);
+    }
+
+    @Override
+    public String returnPageList(List<Goods> goodsList, int pageNum, int pageSize, Boolean isFirst,Model model) {
+        if(isFirst) session.setAttribute("returnGoodsList",goodsList);
+        else goodsList = (List<Goods>)session.getAttribute("returnGoodsList");
+        int size = goodsList.size();
+        int pageAllNum = (size-1)/pageSize + 1;
+        if(pageNum < 1){
+            pageNum = 1;
+        }
+        if(pageNum > pageAllNum){
+            pageNum = pageAllNum;
+        }
+        session.setAttribute("pageNum",pageNum);
+        int pageStart = (pageNum - 1) * pageSize;
+        int pageEnd  = pageStart + pageSize;
+        if(pageEnd > size){
+            pageEnd = size;
+        }
+        goodsList  = goodsList.subList(pageStart,pageEnd);
+
+        Result noticeResult = noticeService.findLastNotice();
+        model.addAttribute("notice",noticeResult.getData());
+
+        model.addAttribute("goodsList",goodsList);
+        return "shopping";
     }
 }

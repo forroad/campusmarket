@@ -26,4 +26,12 @@ public interface EnshrineService {
      * @return 删除结果
      */
     Result deleteUserEnshrine(long enshrineId);
+
+    /**
+     *  删除收藏
+     * @param goodsId 商品id
+     * @param userId 用户id
+     * @return 删除结果
+     */
+    Result delEnshrine(long goodsId,long userId);
 }

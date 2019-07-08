@@ -2,6 +2,7 @@ package com.zhongruan.controller;
 
 import com.google.gson.Gson;
 import com.zhongruan.bean.response.Result;
+import com.zhongruan.bean.util.ImgUtil;
 import com.zhongruan.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,5 +31,10 @@ public class ImageController {
     @GetMapping(value = "getImg",produces = MediaType.IMAGE_JPEG_VALUE)
     public void getImg(Integer type, Long id, HttpServletResponse response,HttpServletRequest request){
         imageService.getImage(type,id,response,request);
+    }
+
+    @GetMapping("getSyscode")
+    public void getSyscode(HttpServletRequest request,HttpServletResponse response){
+        ImgUtil.ran(request, response);
     }
 }

@@ -20,6 +20,12 @@
 		<link href="<c:url value = "//static/css/infstyle.css"/>" rel="stylesheet" type="text/css">
 		<script src="<c:url value = "//static/AmazeUI-2.4.2/assets/js/jquery.min.js"/>" type="text/javascript"></script>
 		<script src="<c:url value = "//static/AmazeUI-2.4.2/assets/js/amazeui.js"/>" type="text/javascript"></script>
+		<%--提示信息--%>
+		<script type="application/javascript">
+			if("${result}".length != 0){
+				alert("${result}")
+			}
+		</script>
 			
 	</head>
 

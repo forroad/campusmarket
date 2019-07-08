@@ -49,4 +49,87 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+
+  <listener>
+    <listener-class>listener.SessionScanerListener</listener-class>
+  </listener>
+
+  <!--配置过滤器-->
+  <filter>
+    <filter-name>myFilter</filter-name>
+    <filter-class>filter.MyFilter</filter-class>
+  </filter>
+
+  <!--映射过滤器-->
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/pages/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/account/modifyUser</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/goods/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/index</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/shopping</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/mycart</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/addshopping</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/myshopping</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/myorder</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/view/shopping-info</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/detail/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/Enshrine/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/message/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/shop/*</url-pattern>
+  </filter-mapping>
+
+
 </web-app>

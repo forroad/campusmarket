@@ -25,4 +25,11 @@ public interface PurchaseDao {
      * @return 查询结果集
      */
     List<Purchase> findByUserIdOrderByTimeDesc(long userId);
+
+    /**
+     * 通过货物Id查询订单
+     * @param goodsId 货物订单
+     * @return 查询结果
+     */
+    List<Purchase> findByGoosId(long goodsId);
 }

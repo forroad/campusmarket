@@ -36,4 +36,14 @@ public class NoticeServiceImpl implements NoticeService {
         List <Notice> notices=NoticeDao.findAllNoticeOrderByTimeDesc();
         return new Result("查询成功",notices);
     }
+
+    @Override
+    public Result findLastNotice() {
+        List <Notice> notices=NoticeDao.findAllNoticeOrderByTimeDesc();
+        if(notices.size() > 0){
+            return new Result("查询成功",notices.get(0));
+        }else {
+            return new Result("查询成功",new Notice());
+        }
+    }
 }

@@ -21,6 +21,12 @@
 		<script src="<c:url value="//static/AmazeUI-2.4.2/assets/js/jquery.min.js"/>"></script>
 		<script src="<c:url value="//static/AmazeUI-2.4.2/assets/js/amazeui.js"/>"></script>
 
+		<%--提示信息--%>
+		<script type="application/javascript">
+			if("${result}".length != 0){
+				alert("${result}")
+			}
+		</script>
 	</head>
 
 	<body>
@@ -139,11 +145,10 @@
 																			<img src="${path}/img/getImg?type=1&id=${goods.goodsId}" class="itempic J_ItemImg">
 																		</a>
 																	</div>
-																	<div style="margin-left: 195px" class="item-info">
+																	<div style="margin-left: 180px" class="item-info">
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>${goods.goodsName}</p>
-																				<p class="info-little">${goods.goodsContent}</p>
 																			</a>
 																		</div>
 																	</div>
@@ -156,21 +161,17 @@
 																		<span>×</span>1
 																	</div>
 																</li>
-															</ul>
-														</div>
-														<div class="order-right">
-															<li class="td td-amount">
-																<div style="text-align: center" class="item-amount">
-																	<p>合计：<span>${goods.goodsNowPrice}</span></p>
-																</div>
-															</li>
-															<div class="move-right">
+																<li class="td td-amount">
+																	<div class="item-amount">
+																		<p>合计：<br/><span>${goods.goodsNowPrice}</span></p>
+																	</div>
+																</li>
 																<li class="td td-status">
-																	<div style="text-align: center" class="item-status">
+																	<div  class="item-status">
 																		<p class="Mystatus">交易成功</p>
 																	</div>
 																</li>
-															</div>
+															</ul>
 														</div>
 													</c:forEach>
 												</div>

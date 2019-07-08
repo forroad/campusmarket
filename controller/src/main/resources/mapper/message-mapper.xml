@@ -12,7 +12,7 @@
 
     <insert id="insertMessage" parameterType="com.zhongruan.bean.Message">
         insert into message(goodsId,userId,messageTime,messageContent)
-        values (#{goodsId}.#{userId}.#{messageTime},#{messageContent})
+        values (#{goodsId},#{userId},#{messageTime},#{messageContent})
     </insert>
 
     <delete id="deleteMessage" parameterType="java.lang.Long">

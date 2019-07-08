@@ -22,6 +22,13 @@
 		<script src="<c:url value= "//static/AmazeUI-2.4.2/assets/js/jquery.min.js"/>" type="text/javascript"></script>
 		<script src="<c:url value= "//static/AmazeUI-2.4.2/assets/js/amazeui.js"/>" type="text/javascript"></script>
 
+
+		<%--提示信息--%>
+		<script type="application/javascript">
+			if("${result}".length != 0){
+				alert("${result}")
+			}
+		</script>
 	</head>
 
 	<body>
@@ -104,7 +111,15 @@
 								<div class="am-form-group">
 									<label for="goods-type" class="am-form-label">商品类型<span></span></label>
 									<div class="am-form-content">
-										<input id="goods-type" type="text" name="typeName">
+										<select id="goods-type" style="width: 100%;min-height: 32px;" name="typeName">
+											<option value="手机">手机</option>
+											<option value="电脑">电脑</option>
+											<option value="配件">配件</option>
+											<option value="电器">电器</option>
+											<option value="书籍">书籍</option>
+											<option value="娱乐">娱乐</option>
+											<option value="运动">运动</option>
+										</select>
 									</div>
 								</div>
 								<div class="am-form-group">

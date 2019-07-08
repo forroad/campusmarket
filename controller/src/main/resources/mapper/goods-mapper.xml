@@ -33,8 +33,9 @@
     </select>
 
     <select id="findByGoodsNameLike" parameterType="java.lang.String" resultMap="GoodsMap">
-        select * from goods
-        where goodsName like "%"#{goodsName}"%"
+     select *
+     from goods
+     where goodsName like "%"#{goodsName}"%"and goodsId not in (select goodsId from purchase)
     </select>
 
     <select id="findByGoodsNowPriceBetween" parameterType="java.lang.String" resultMap="GoodsMap">
@@ -44,6 +45,7 @@
 
     <select id="findByGoodsPopularityDesc" parameterType="java.lang.String" resultMap="GoodsMap">
         select * from goods
+        where  goodsId not in (select goodsId from purchase)
         order by goodsPopularity desc
     </select>
 
@@ -66,4 +68,38 @@
        SELECT * FROM goods
        WHERE goodsId IN (SELECT goodsId FROM purchase WHERE userId=#{userId})
    </select>
+
+    <select id="findByNotByAndAdd" parameterType="java.lang.Long" resultMap="GoodsMap">
+        select * from goods
+        where goodsId not in(select goodsId from purchase)
+        and userId=#{userId}
+    </select>
+
+    <select id="findGoodsByUserId" parameterType="java.lang.Long" resultMap="GoodsMap">
+       SELECT * FROM goods WHERE goodsId IN (SELECT goodsId FROM enshrine WHERE userId = #{userId})
+    </select>
+
+    <select id="findGoodsExc"  resultMap="GoodsMap" >
+      select *
+     from goods
+     where  goodsId not in (select goodsId from purchase)
+   </select>
+
+    <select id="findGoodsByType" parameterType="java.lang.Long" resultMap="GoodsMap">
+     select *
+     from goods
+     where typeId=#{typeId} and goodsId not in (select goodsId from purchase)
+    </select>
+
+    <select id="findByGoodsPriceDesc" resultMap="GoodsMap">
+        select * from goods
+        where  goodsId not in (select goodsId from purchase)
+        order by goodsNowPrice desc
+    </select>
+
+    <select id="findByGoodsPriceAsc" resultMap="GoodsMap">
+        select * from goods
+        where  goodsId not in (select goodsId from purchase)
+        order by goodsNowPrice asc
+    </select>
 </mapper>

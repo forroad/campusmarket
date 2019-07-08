@@ -14,4 +14,6 @@ public interface NoticeService {
     //查询所有公告
     Result findAllNoticeOrderByTimeDesc();
 
+    //查询最近的公告
+    Result findLastNotice();
 }

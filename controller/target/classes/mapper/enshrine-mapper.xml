@@ -26,4 +26,13 @@
          select * from enshrine where goodsId=#{goodsId}
     </select>
 
+    <delete id="delEnshrine" parameterType="java.lang.Long">
+        delete from enshrine where goodsId=#{goodsId} and userId=#{userId};
+    </delete>
+
+    <select id="findByUserIdAndGoodsId" parameterType="java.lang.Long" resultMap="EnshrineMap">
+        select * from enshrine
+        where goodsId=#{goodsId} and userId=#{userId}
+    </select>
+
 </mapper>

@@ -25,4 +25,9 @@
         order by purchaseTime desc
     </select>
 
+    <select id="findByGoosId" parameterType="java.lang.Long" resultMap="PurchaseMap">
+        select * from purchase
+        where goodsId=#{goodsId}
+    </select>
+
 </mapper>

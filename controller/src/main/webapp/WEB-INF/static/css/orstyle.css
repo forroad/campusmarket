@@ -32,7 +32,7 @@ img{width: 100%;}
 .order-right{width:100%;overflow: hidden; }
 .order-right .td-amount,.td-changeorder{width:100%; text-align: right;font-size:14px ;font-weight: 600;padding:10px 5px ;}
 .order-right .td-amount p{display:inline;font-weight: 100;margin-top: -10px;}
-.td-status p.Mystatus{position: absolute;top:-25px;left:0px ;color:#dd514c;}
+.td-status p.Mystatus{position: absolute;top:-25px;margin-left:-32px ;color:#dd514c;}
 .td-status p.order-info{height: 32px; line-height: 32px;border: 1px solid #E4EAEE;padding:0px 5px ;}
 /*退换货管理*/
 .td-changeorder li{float: right;}
@@ -96,8 +96,8 @@ vertical-align: top;margin-top: 5px;margin-left: -24px;color: #b5b5b5;font-size:
 .th-number,.td-number{position:static;width:8%;text-align: center;}
 .th-operation,.td-operation{position:static;width:15%;text-align: center;}
 .th-amount,.th-status,.th-change{display: none;}
-.td-amount{font-size:16px;}
-.td-status p.Mystatus{text-align: center;width:15%;top:-30px;}
+.td-amount{font-size:16px; margin-top: 20px;width: 108px;text-align: center;}
+.td-status p.Mystatus{text-align: center;width:15%;top: 20px;}
 
 /*退换货管理*/
 ul.td-changeorder {width:20%}

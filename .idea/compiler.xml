@@ -7,9 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="controller" />
-        <module name="service" />
-        <module name="bean" />
         <module name="dao" />
+        <module name="bean" />
+        <module name="service" />
       </profile>
     </annotationProcessing>
   </component>

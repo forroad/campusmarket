@@ -71,4 +71,45 @@ public interface GoodsDao {
      * @return 查询结果
      */
     List<Goods> findByIsBuyAndUserId(long userId);
+
+
+    /**
+     * 查询用户发布并且未被购买的商品
+     * @param userId 发布商品的用户
+     * @return 查询结果集
+     */
+    List<Goods> findByNotByAndAdd(long userId);
+
+
+    /**
+     *  查询用户收藏的id
+     * @param userId 用户id
+     * @return ...
+     */
+    List<Goods>  findGoodsByUserId(long userId);
+
+    /**
+     *  查询不在订单之中的商品
+     * @return
+     */
+    List<Goods> findGoodsExc();
+
+    /**
+     *   通过类型查询商品
+     * @param typeId 类型id
+     * @return 查询结果
+     */
+    List<Goods> findGoodsByType(long typeId);
+
+    /**
+     * 通过价格降序查询商品
+     * @return 查询结果
+     */
+    List<Goods> findByGoodsPriceDesc();
+
+    /**
+     * 通过价格升序查询商品
+     * @return 查询结果
+     */
+    List<Goods> findByGoodsPriceAsc();
 }

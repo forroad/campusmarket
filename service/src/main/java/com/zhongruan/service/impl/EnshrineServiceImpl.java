@@ -17,10 +17,14 @@ public class EnshrineServiceImpl implements EnshrineService {
     EnshrineDao enshrineDao;
     @Override
     public Result addEnshrine(long userId, long goodsId) {
+        Enshrine enshrine = enshrineDao.findByUserIdAndGoodsId(goodsId,userId);
+        if(enshrine != null){
+            return new Result("已收藏",enshrine);
+        }
         Date date   =  new   java.util.Date();
-        Enshrine enshrine=new Enshrine(userId,goodsId,date);
-        enshrineDao.insertEnshrine(enshrine);
-        return new Result("增加收藏成功",enshrine);
+        Enshrine enshrine1=new Enshrine(userId,goodsId,date);
+        enshrineDao.insertEnshrine(enshrine1);
+        return new Result("增加收藏成功",enshrine1);
     }
 
     @Override
@@ -32,6 +36,12 @@ public class EnshrineServiceImpl implements EnshrineService {
     @Override
     public Result deleteUserEnshrine(long enshrineId) {
         enshrineDao.deleteEnshrine(enshrineId);
+        return new Result("删除收藏成功",null);
+    }
+
+    @Override
+    public Result delEnshrine(long goodsId, long userId) {
+        enshrineDao.delEnshrine(goodsId,userId);
         return new Result("删除收藏成功",null);
     }
 }

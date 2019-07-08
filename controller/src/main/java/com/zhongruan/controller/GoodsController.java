@@ -1,5 +1,6 @@
 package com.zhongruan.controller;
 
+import com.zhongruan.bean.Goods;
 import com.zhongruan.bean.GoodsType;
 import com.zhongruan.bean.response.Result;
 import com.zhongruan.dao.GoodsTypeDao;
@@ -11,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("goods")
@@ -23,13 +26,15 @@ public class GoodsController {
     private HttpSession session;
     private GoodsTypeDao goodsTypeDao;
     private ImageService imageService;
+    private HttpServletRequest request;
 
     @Autowired
-    public GoodsController(GoodsService goodsService, HttpSession session, GoodsTypeDao goodsTypeDao, ImageService imageService) {
+    public GoodsController(GoodsService goodsService, HttpSession session, GoodsTypeDao goodsTypeDao, ImageService imageService, HttpServletRequest request) {
         this.goodsService = goodsService;
         this.session = session;
         this.goodsTypeDao = goodsTypeDao;
         this.imageService = imageService;
+        this.request = request;
     }
 
     @RequestMapping(value = "addGoods",method = RequestMethod.POST)
@@ -46,11 +51,6 @@ public class GoodsController {
         long id = Long.valueOf(userId);
         GoodsType type = goodsTypeDao.findByGoodsTypeName(typeName);
         if(type == null){
-            System.out.println("typeName:" + typeName);
-            System.out.println("goodsName:" + goodsName);
-            System.out.println("goodsContent:" + goodsContent);
-            System.out.println("goodsNumber:" + goodsNumber);
-            System.out.println("goodsNowPrice:" + goodsNowPrice);
             model.addAttribute("result","服务器出错，请重新登录");
             return "login";
         }
@@ -71,4 +71,65 @@ public class GoodsController {
         model.addAttribute("result","发布失败");
         return "addshopping";
     }
+
+    @RequestMapping("subGoods")
+    public String subGoods(Long goodsId,Model model){
+        Result result = goodsService.subGoods(goodsId);
+        if(result.getMessage().equals("下架成功")){
+            Result result1 = goodsService.findByNotBuyAndAdd(Long.valueOf(request.getSession().getAttribute("userId").toString()));
+            model.addAttribute("goodsList",result1.getData());
+            return "myshopping";
+        }
+        model.addAttribute("result","下架失败");
+        Result result2 = goodsService.findByNotBuyAndAdd(Long.valueOf(request.getSession().getAttribute("userId").toString()));
+        model.addAttribute("goodsList",result2.getData());
+        return "myshopping";
+    }
+
+    @RequestMapping("buyGoods")
+    public String buyGoods(Long goodsId,Model model){
+        Result result1 = goodsService.buyGoods(Long.valueOf(request.getSession().getAttribute("userId").toString()),goodsId);
+        Result result = goodsService.findByIsBuyAndUserId(Long.valueOf(request.getSession().getAttribute("userId").toString()));
+        if(!result1.getMessage().equals("购买成功")){
+            model.addAttribute("result",result1.getMessage());
+            model.addAttribute("goodsList",result.getData());
+            return "mycart";
+        }
+        model.addAttribute("goodsList",result.getData());
+        return "myorder";
+    }
+
+    @RequestMapping("findGoodsByType")
+    public String findGoodsByType(String typeName,Model model){
+        Result findResult = goodsService.findGoodsByType(typeName);
+        if(findResult.getMessage().equals("查询成功")){
+            return goodsService.returnPageList((List<Goods>) findResult.getData(),1,20,true,model);
+        }
+        model.addAttribute("result",findResult.getMessage());
+        return goodsService.returnPageList((List<Goods>) goodsService.findGoodsExc().getData(),1,20,true,model);
+    }
+
+    @RequestMapping("findByGoodsPopularityDesc")
+    public String findByGoodsPopularityDesc(Model model){
+        Result findResult = goodsService.findByGoodsPopularityDesc();
+        return goodsService.returnPageList((List<Goods>) findResult.getData(),1,20,true,model);
+    }
+
+    @RequestMapping("findByGoodsPriceDesc")
+    public String findByGoodsPriceDesc(Model model){
+        Result findResult = goodsService.findByGoodsPriceDesc();
+        return goodsService.returnPageList((List<Goods>) findResult.getData(),1,20,true,model);
+    }
+
+    @RequestMapping("findByGoodsPriceAsc")
+    public String findByGoodsPriceAsc(Model model){
+        Result findResult = goodsService.findByGoodsPriceAsc();
+        return goodsService.returnPageList((List<Goods>) findResult.getData(),1,20,true,model);
+    }
+
+    @RequestMapping("page")
+    public String page(Integer pageNum,Model model){
+        return goodsService.returnPageList(null,pageNum,20,false,model);
+    }
+
 }
